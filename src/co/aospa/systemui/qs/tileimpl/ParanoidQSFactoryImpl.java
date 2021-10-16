@@ -61,6 +61,7 @@ import co.aospa.systemui.qs.tiles.CaffeineTile;
 import co.aospa.systemui.qs.tiles.DataSwitchTile;
 import co.aospa.systemui.qs.tiles.DcDimmingTile;
 import co.aospa.systemui.qs.tiles.HeadsUpTile;
+import co.aospa.systemui.qs.tiles.SoundTile;
 import co.aospa.systemui.qs.tiles.UsbTetherTile;
 import dagger.Lazy;
 
@@ -73,6 +74,7 @@ public class ParanoidQSFactoryImpl extends QSFactoryImpl {
     private final Provider<DcDimmingTile> mDcDimmingTileProvider;
     private final Provider<UsbTetherTile> mUsbTetherTileProvider;
     private final Provider<AODTile> mAODTileProvider;
+    private final Provider<SoundTile> mSoundTileProvider;
 
     @Inject
     public ParanoidQSFactoryImpl(Lazy<QSHost> qsHostLazy,
@@ -112,7 +114,8 @@ public class ParanoidQSFactoryImpl extends QSFactoryImpl {
             Provider<HeadsUpTile> headsUpTileProvider,
             Provider<DcDimmingTile> dcDimTileProvider,
             Provider<UsbTetherTile> usbTetherTileProvider,
-            Provider<AODTile> aodTileProvider) {
+            Provider<AODTile> aodTileProvider,
+            Provider<SoundTile> soundTileProvider) {
         super(qsHostLazy, customTileBuilderProvider, wifiTileProvider, internetTileProvider,
                 bluetoothTileProvider, cellularTileProvider, dndTileProvider,
                 colorInversionTileProvider, airplaneModeTileProvider, workModeTileProvider,
@@ -130,6 +133,7 @@ public class ParanoidQSFactoryImpl extends QSFactoryImpl {
         mDcDimmingTileProvider = dcDimTileProvider;
         mUsbTetherTileProvider = usbTetherTileProvider;
         mAODTileProvider = aodTileProvider;
+        mSoundTileProvider = soundTileProvider;
     }
 
     @Nullable
@@ -148,6 +152,8 @@ public class ParanoidQSFactoryImpl extends QSFactoryImpl {
                 return mUsbTetherTileProvider.get();
             case "aod":
                 return mAODTileProvider.get();
+            case "sound":
+                return mSoundTileProvider.get();
             default:
                 return super.createTileInternal(tileSpec);
         }
